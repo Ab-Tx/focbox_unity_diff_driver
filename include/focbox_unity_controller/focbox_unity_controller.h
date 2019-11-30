@@ -26,10 +26,12 @@ namespace focbox_unity_controller
     private:
         ros::NodeHandle _nh;
         hardware_interface::JointStateInterface _joint_state_interface;
+        hardware_interface::VelocityJointInterface _velocity_joint_interface;
         hardware_interface::EffortJointInterface _effort_joint_interface;
         ros::Timer non_realtime_loop_;
         ros::Duration control_period_;
         ros::Duration elapsed_time_;
+        double _vel_cmd[2];
         double _cmd[2];
         double _pos[2];
         double _vel[2];
