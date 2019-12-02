@@ -1,0 +1,23 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+
+  <!-- Parameters for the hardware interface and controllers -->
+  <rosparam file="$(find focbox_unity_driver)/config/focbox_unity_driver_config.yaml"/>
+
+  <!-- Start a controller for our joints -->
+  <node name="joint_controllers_spawner" pkg="controller_manager" type="spawner"
+          respawn="false" output="screen"
+          args="/focbox_unity_driver/joint_states
+                /focbox_unity_driver/velocity_controller1
+                /focbox_unity_driver/velocity_controller2" />
+
+  <!--FOCBOX Unitydriver parameters -->
+  <arg name="port" default="/dev/focbox" />
+
+  <!--FOCBOX Unitydriver node -->
+  <node pkg="focbox_unity_driver" type="focbox_unity_driver_node" name="focbox_unity_driver_node"
+        output="screen" required="true">
+    <param name="port" value="$(arg port)" />
+  </node>
+
+</launch>

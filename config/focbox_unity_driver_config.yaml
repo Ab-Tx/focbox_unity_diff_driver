@@ -1,25 +1,24 @@
-focbox_unity_controller:
-  hardware_interface:
-    loop_hz: 1
+focbox_unity_driver:
+  motor_parameters:
+    counts: 90.0
+    pole_pairs: 14.0
 
-  joint_state_controller:
+  joint_states:
     type: joint_state_controller/JointStateController
     publish_rate: 50
 
-  left_wheel_effort_controller:
-      type: effort_controllers/JointVelocityController
-      joint: wheel_left_eff_joint
-      pid: {p: 1.0, i: 0.0, d: 0.0}
+  velocity_controller1:
+    type: velocity_controllers/JointVelocityController
+    joint: motor1
 
-  right_wheel_effort_controller:
-      type: effort_controllers/JointVelocityController
-      joint: wheel_right_eff_joint
-      pid: {p: 1.0, i: 0.0, d: 0.0}
+  velocity_controller2:
+    type: velocity_controllers/JointVelocityController
+    joint: motor2
 
   differential_controller:
     type        : "diff_drive_controller/DiffDriveController"
-    left_wheel  : 'wheel_left_vel_joint'
-    right_wheel : 'wheel_right_vel_joint'
+    left_wheel  : 'motor2'
+    right_wheel : 'motor1'
     publish_rate: 50.0               # default: 50
     pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
     twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
@@ -44,19 +43,19 @@ focbox_unity_controller:
     # Whenever a min_* is unspecified, default to -max_*
     linear:
       x:
-        has_velocity_limits    : true
+        has_velocity_limits    : false
         max_velocity           : 1.0  # m/s
         min_velocity           : -0.5 # m/s
-        has_acceleration_limits: true
+        has_acceleration_limits: false
         max_acceleration       : 0.8  # m/s^2
         min_acceleration       : -0.4 # m/s^2
-        has_jerk_limits        : true
+        has_jerk_limits        : false
         max_jerk               : 5.0  # m/s^3
     angular:
       z:
-        has_velocity_limits    : true
+        has_velocity_limits    : false
         max_velocity           : 1.7  # rad/s
-        has_acceleration_limits: true
+        has_acceleration_limits: false
         max_acceleration       : 1.5  # rad/s^2
-        has_jerk_limits        : true
+        has_jerk_limits        : false
         max_jerk               : 2.5  # rad/s^3

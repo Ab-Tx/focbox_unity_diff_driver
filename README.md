@@ -1,4 +1,6 @@
-# FOCBOX controller
+# FOCBOX Unity driver
+
+simple api to comunicate with FOCBOX Unity motor controllers
 
 ## Getting Started
 

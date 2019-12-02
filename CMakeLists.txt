@@ -1,28 +1,27 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(focbox_unity_controller)
+project(focbox_unity_driver)
 
-find_package( catkin REQUIRED COMPONENTS
+find_package(catkin REQUIRED COMPONENTS
   nodelet
-  roslaunch
-  roscpp
   pluginlib
+  roscpp
+  std_msgs
+  serial
+  roslaunch
   controller_manager
   hardware_interface
-  std_msgs
-  focbox_unity_msgs
 )
 
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS
-  nodelet
-  roslaunch
+  nodelet pluginlib
   roscpp
-  pluginlib
+  std_msgs
+  serial
+  roslaunch
   controller_manager
   hardware_interface
-  std_msgs
-  focbox_unity_msgs
 )
 
 ###########
@@ -36,40 +35,43 @@ include_directories(
 )
 
 # node executable
-add_executable(focbox_unity_controller_node src/focbox_unity_controller_node.cpp
-                                            src/focbox_unity_controller.cpp)
+add_executable(focbox_unity_driver_node src/focbox_unity_driver_node.cpp
+                                        src/focbox_unity_driver.cpp
+                                        src/focbox_unity_interface.cpp
+                                        src/focbox_unity_packet.cpp
+                                        src/focbox_unity_packer.cpp)
 add_dependencies(focbox_unity_driver_node ${catkin_EXPORTED_TARGETS})
-target_link_libraries(focbox_unity_controller_node
+target_link_libraries(focbox_unity_driver_node
   ${catkin_LIBRARIES}
 )
 
 # nodelet library
-# add_library(focbox_unity_driver_nodelet src/focbox_unity_driver_nodelet.cpp
-#                                 src/focbox_unity_driver.cpp
-#                                 src/focbox_unity_interface.cpp
-#                                 src/focbox_unity_packet.cpp
-#                                 src/focbox_unity_packer.cpp)
-# add_dependencies(focbox_unity_driver_nodelet ${catkin_EXPORTED_TARGETS})
-# target_link_libraries(focbox_unity_driver_nodelet
-#   ${catkin_LIBRARIES}
-# )
+add_library(focbox_unity_driver_nodelet src/focbox_unity_driver_nodelet.cpp
+                                src/focbox_unity_driver.cpp
+                                src/focbox_unity_interface.cpp
+                                src/focbox_unity_packet.cpp
+                                src/focbox_unity_packer.cpp)
+add_dependencies(focbox_unity_driver_nodelet ${catkin_EXPORTED_TARGETS})
+target_link_libraries(focbox_unity_driver_nodelet
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
 #############
 
-install(TARGETS focbox_unity_controller_node
+install(TARGETS focbox_unity_driver_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-# install(TARGETS focbox_unity_driver_nodelet
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-# )
+install(TARGETS focbox_unity_driver_nodelet
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
 
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-# install(FILES focbox_unity_driver_nodelet.xml
-#         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(FILES focbox_unity_driver_nodelet.xml
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 install(DIRECTORY launch/
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
 
