@@ -210,6 +210,11 @@ void FocboxUnityInterface::send(const FocboxUnityPacket& packet)
   }
 }
 
+void FocboxUnityInterface::reboot()
+{
+  send(FocboxUnityPacketReboot());
+}
+
 void FocboxUnityInterface::requestFWVersion()
 {
   send(FocboxUnityPacketRequestFWVersion());

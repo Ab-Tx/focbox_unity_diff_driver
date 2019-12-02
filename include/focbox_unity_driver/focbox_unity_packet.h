@@ -77,6 +77,14 @@ typedef boost::shared_ptr<FocboxUnityPacket const> FocboxUnityPacketConstPtr;
 
 /*------------------------------------------------------------------------------------------------*/
 
+class FocboxUnityPacketReboot : public FocboxUnityPacket
+{
+public:
+  FocboxUnityPacketReboot();
+
+};
+
+
 class FocboxUnityPacketFWVersion : public FocboxUnityPacket
 {
 public:
