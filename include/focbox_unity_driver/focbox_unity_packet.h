@@ -84,6 +84,16 @@ public:
 
 };
 
+/*------------------------------------------------------------------------------------------------*/
+
+class FocboxUnityClrTach : public FocboxUnityPacket
+{
+public:
+  FocboxUnityClrTach();
+
+};
+
+/*------------------------------------------------------------------------------------------------*/
 
 class FocboxUnityPacketFWVersion : public FocboxUnityPacket
 {

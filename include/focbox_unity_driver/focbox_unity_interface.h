@@ -84,6 +84,7 @@ public:
   void send(const FocboxUnityPacket& packet);
 
   void reboot();
+  void clrTach();
   void requestFWVersion();
   void requestState();
   void setDutyCycle(double duty_cycle1, double duty_cycle2);

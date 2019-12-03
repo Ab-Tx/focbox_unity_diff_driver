@@ -82,6 +82,18 @@ FocboxUnityPacketReboot::FocboxUnityPacketReboot() :
 }
 
 /*------------------------------------------------------------------------------------------------*/
+
+FocboxUnityClrTach::FocboxUnityClrTach() :
+  FocboxUnityPacket("ClrTach", 1, COMM_CLR_TACH)
+{
+  FocboxUnityFrame::CRC crc_calc;
+  crc_calc.process_bytes(&(*payload_.first), boost::distance(payload_));
+  uint16_t crc = crc_calc.checksum();
+  *(frame_->end() - 3) = static_cast<uint8_t>(crc >> 8);
+  *(frame_->end() - 2) = static_cast<uint8_t>(crc & 0xFF);
+}
+
+/*------------------------------------------------------------------------------------------------*/
 FocboxUnityPacketFWVersion::FocboxUnityPacketFWVersion(boost::shared_ptr<FocboxUnityFrame> raw) :
   FocboxUnityPacket("FWVersion", raw)
 {

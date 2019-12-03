@@ -210,6 +210,11 @@ void FocboxUnityInterface::send(const FocboxUnityPacket& packet)
   }
 }
 
+void FocboxUnityInterface::clrTach()
+{
+  send(FocboxUnityClrTach());
+}
+
 void FocboxUnityInterface::reboot()
 {
   send(FocboxUnityPacketReboot());

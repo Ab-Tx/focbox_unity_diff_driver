@@ -147,14 +147,14 @@ void FocboxUnityDriver::controllerRoutine(const boost::shared_ptr<FocboxUnityPac
 
   _eff[0] = values->motor_current1();
   _eff[1] = values->motor_current2();
-  _vel[0] = (values->rpm1() / pole_pairs_) * 6.0f; // angular velocity?
-  _vel[1] = (values->rpm2() / pole_pairs_) * 6.0f; // angular velocity?
-  _pos[0] = values->tachometer1() * (360.0f / counts_); // angular position?
-  _pos[1] = values->tachometer2() * (360.0f / counts_); // angular position? 2*PI / ENC_COUNT(90) * DISPLACEMENt
+  _vel[0] = ((values->rpm1() / pole_pairs_) / 60.0f) * (2.0f * M_PI); // angular velocity (rad/s)
+  _vel[1] = ((values->rpm2() / pole_pairs_) / 60.0f) * (2.0f * M_PI); // angular velocity (rad/s)
+  _pos[0] = values->tachometer1() * ((2.0f * M_PI) / counts_); // angular position (rads)
+  _pos[1] = values->tachometer2() * ((2.0f * M_PI) / counts_); // angular position (rads)
 
   controller_manager_->update(time_now_, elapsed_time_);
 
-  focbox_.setSpeed((_cmd[0] / 6.0f) * pole_pairs_, (_cmd[1] / 6.0f) * pole_pairs_);
+  focbox_.setSpeed((_cmd[0] / (2.0f * M_PI)) * 60.0f * pole_pairs_, (_cmd[1] / (2.0f * M_PI)) * 60.0f * pole_pairs_);
 }
 
 void FocboxUnityDriver::publishTopics(const boost::shared_ptr<FocboxUnityPacketValues const>& values)
@@ -163,26 +163,26 @@ void FocboxUnityDriver::publishTopics(const boost::shared_ptr<FocboxUnityPacketV
     std_msgs::Float64 msg_holder;
 
     // ------------------------------------------
-    msg_holder.data = (values->rpm1() / pole_pairs_) * 6.0f;
+    msg_holder.data = ((values->rpm1() / pole_pairs_) / 60.0f) * (2.0f * M_PI);
     motor1_velocity_pub_.publish(msg_holder);
 
     msg_holder.data = values->motor_current1();
     motor1_current_pub_.publish(msg_holder);
 
-    msg_holder.data = values->tachometer1() * (360.0f / counts_);
+    msg_holder.data = values->tachometer1() * ((2.0f * M_PI) / counts_);
     motor1_position_pub_.publish(msg_holder);
 
     msg_holder.data = values->temp_mot1();
     motor1_temperature_pub_.publish(msg_holder);
 
     // ------------------------------------------
-    msg_holder.data = (values->rpm2() / pole_pairs_) * 6.0f;
+    msg_holder.data = ((values->rpm2() / pole_pairs_) / 60.0f) * (2.0f * M_PI);
     motor2_velocity_pub_.publish(msg_holder);
 
     msg_holder.data = values->motor_current2();
     motor2_current_pub_.publish(msg_holder);
 
-    msg_holder.data = values->tachometer2() * (360.0f / counts_);
+    msg_holder.data = values->tachometer2() * ((2.0f * M_PI) / counts_);
     motor2_position_pub_.publish(msg_holder);
 
     msg_holder.data = values->temp_mot2();
