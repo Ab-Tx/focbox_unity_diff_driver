@@ -8,8 +8,7 @@
   <node name="joint_controllers_spawner" pkg="controller_manager" type="spawner"
           respawn="false" output="screen"
           args="/focbox_unity_driver/joint_states
-                /focbox_unity_driver/velocity_controller1
-                /focbox_unity_driver/velocity_controller2" />
+                /focbox_unity_driver/differential_controller" />
 
   <!--FOCBOX Unitydriver parameters -->
   <arg name="port" default="/dev/focbox" />

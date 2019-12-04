@@ -96,8 +96,7 @@ private:
   // driver modes (possible states)
   typedef enum {
     MODE_INITIALIZING,
-    MODE_OPERATING,
-    MODE_REBOOTING
+    MODE_OPERATING
   } driver_mode_t;
 
   // other variables

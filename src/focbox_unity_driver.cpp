@@ -110,20 +110,10 @@ void FocboxUnityDriver::updateTimerCB(const ros::TimerEvent& event)
     {
       ROS_INFO("Connected to FOCBOX Unity with firmware version %d.%d",
                fw_version_major_, fw_version_minor_);
-      ROS_INFO("Rebooting FOCBOX");
+
       driver_mode_ = MODE_OPERATING;
 
-      focbox_.reboot();
-      driver_mode_ = MODE_REBOOTING;
-    }
-  }
-  else if (driver_mode_ == MODE_REBOOTING)
-  {
-    static ros::Time reboot_start = ros::Time::now();
-    if((ros::Time::now().toSec() - reboot_start.toSec()) > 5)
-    {
-      driver_mode_ = MODE_OPERATING;
-      ROS_INFO("FOCBOX begin MODE_OPERATING");
+      focbox_.clrTach();
     }
   }
   else if (driver_mode_ == MODE_OPERATING)
