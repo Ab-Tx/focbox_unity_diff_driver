@@ -1,3 +1,10 @@
+// Copyright (c) 2019 Rafael Silva (gimbas)
+//
+// Licensed under the MIT license: https://opensource.org/licenses/MIT
+// Permission is granted to use, copy, modify, and redistribute the work.
+// Full license information available in the project LICENSE file.
+//
+
 #include "focbox_unity_driver/focbox_unity_driver.h"
 
 int main(int argc, char** argv)

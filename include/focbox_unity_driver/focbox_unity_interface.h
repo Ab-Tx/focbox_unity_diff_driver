@@ -1,4 +1,9 @@
-// -*- mode:c++; fill-column: 100; -*-
+// Copyright (c) 2019 Rafael Silva (gimbas)
+//
+// Licensed under the MIT license: https://opensource.org/licenses/MIT
+// Permission is granted to use, copy, modify, and redistribute the work.
+// Full license information available in the project LICENSE file.
+//
 
 #ifndef FOCBOX_UNITY_INTERFACE_H_
 #define FOCBOX_UNITY_INTERFACE_H_
@@ -33,15 +38,14 @@ public:
    * empty, otherwise the serial port remains closed until connect() is called.
    *
    * @param port Address of the serial port, e.g. '/dev/ttyUSB0'.
-   * @param packet_handler Function this class calls when aFOCBOX Unitypacket is received.
-   * @param error_handler Function this class calls when an error is detected, such as a bad
-   *                      checksum.
+   * @param packet_handler Function this class calls when a FOCBOX Unity packet is received.
+   * @param error_handler Function this class calls when an error is detected, such as a bad checksum.
    *
    * @throw SerialException
    */
   FocboxUnityInterface(const std::string& port = std::string(),
-                const PacketHandlerFunction& packet_handler = PacketHandlerFunction(),
-                const ErrorHandlerFunction& error_handler = ErrorHandlerFunction());
+                        const PacketHandlerFunction& packet_handler = PacketHandlerFunction(),
+                        const ErrorHandlerFunction& error_handler = ErrorHandlerFunction());
 
   /**
    * FocboxUnityInterface destructor.
@@ -62,7 +66,7 @@ public:
   /**
    * Opens the serial port interface to the FOCBOX.
    *
-   * @throw SerialException
+   * throws SerialException
    */
   void connect(const std::string& port);
 
@@ -74,7 +78,7 @@ public:
   /**
    * Gets the status of the serial interface to the FOCBOX.
    *
-   * @return Returns true if the serial port is open, false otherwise.
+   * Returns true if the serial port is open, false otherwise.
    */
   bool isConnected() const;
 
@@ -99,7 +103,6 @@ private:
   boost::scoped_ptr<Impl> impl_;
 };
 
-// todo: review
 class SerialException : public std::exception
 {
   // Disable copy constructors

@@ -8,59 +8,77 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to install the software and how to install them.
+
+packages may be under different names, use the package manager of you choosing.
 
 ```
-Give examples
+ros-melodic
+ros-melodic-ros-control
+ros-melodic-ros-controllers
+ros-melodic-velocity-controllers
 ```
+
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+setup your catkin workspace if it isn't already
 
 ```
-Give the example
+https://wiki.ros.org/catkin/Tutorials/create_a_workspace
 ```
 
-And repeat
+clone this repository to your catkin workspace
 
 ```
-until finished
+git clone https://github.com/gimbas/focbox_unity_diff_driver
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+compile the node
 ```
-Give an example
+catkin_make
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
+if you wish you can deploy/install
 ```
-Give an example
+catkin_make --install
 ```
 
-## Deployment
+now you can launch node
 
-Add additional notes about how to deploy this on a live system
+make sure you have the workspace overlayed on terminal instance
+```
+bash your_catkin_workspace/devel/setup.bash
+```
+
+and ros is runing
+```
+roscore
+```
+
+launch
+```
+roslaunch focbox_unity_diff_driver/ focbox_unity_diff_driver_node.launch
+```
+
+## Test
+
+you can send a velocity command to make sure it is working
+```
+rostopic pub /cmd_vel geometry_msgs/Twist '[$linear velocity (m/s)$, 0, 0]' '[0, 0, $angular velocity (rad/s)$]'
+```
 
 ## Built With
 
 * catkin
 * roscpp
 * [C++](//) - C++ language
+
+## API & documentation
+
+API documentation is available in [API.md](API.md)
 
 ## Contributing
 
@@ -83,3 +101,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * original vesc firmware - [vedderb](https://github.com/vedderb/bldc)
 * focbox unity firmware - [enertionboards](https://github.com/EnertionBoards/bldc/tree/unity)
 * mit racecar vesc driver - [mit-racecar/vesc](https://github.com/mit-racecar/vesc)
+* ros_control & roscontrollers

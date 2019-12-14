@@ -1,20 +1,25 @@
 focbox_unity_driver:
+  # parameters used in the driver
   motor_parameters:
     counts: 90.0
     pole_pairs: 14.0
 
+  # joint state interface
   joint_states:
     type: joint_state_controller/JointStateController
     publish_rate: 50
 
+  # velocity joint interface (only if diff_drive_controller is not used)
   velocity_controller1:
     type: velocity_controllers/JointVelocityController
     joint: motor1
 
+  # velocity joint interface (only if diff_drive_controller is not used)
   velocity_controller2:
     type: velocity_controllers/JointVelocityController
     joint: motor2
 
+  # diff_drive_controller (ros_control) parameters
   differential_controller:
     type        : "diff_drive_controller/DiffDriveController"
     left_wheel  : 'motor2'

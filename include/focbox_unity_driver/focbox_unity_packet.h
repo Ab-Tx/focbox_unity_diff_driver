@@ -1,4 +1,9 @@
-// -*- mode:c++; fill-column: 100; -*-
+// Copyright (c) 2019 Rafael Silva (gimbas)
+//
+// Licensed under the MIT license: https://opensource.org/licenses/MIT
+// Permission is granted to use, copy, modify, and redistribute the work.
+// Full license information available in the project LICENSE file.
+//
 
 #ifndef FOCBOX_UNITY_PACKET_H_
 #define FOCBOX_UNITY_PACKET_H_
@@ -76,6 +81,7 @@ typedef boost::shared_ptr<FocboxUnityPacket> FocboxUnityPacketPtr;
 typedef boost::shared_ptr<FocboxUnityPacket const> FocboxUnityPacketConstPtr;
 
 /*------------------------------------------------------------------------------------------------*/
+// Reboot packet - sends command code to reset
 
 class FocboxUnityPacketReboot : public FocboxUnityPacket
 {
@@ -85,6 +91,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// Clear Tachometer packet - resets tachometer variables
 
 class FocboxUnityClrTach : public FocboxUnityPacket
 {
@@ -94,6 +101,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// Firmware version packet - contains firmware information
 
 class FocboxUnityPacketFWVersion : public FocboxUnityPacket
 {
@@ -105,6 +113,8 @@ public:
 
 };
 
+// request firmware version packet - requests a reponse in the form of a Firmware version packet
+
 class FocboxUnityPacketRequestFWVersion : public FocboxUnityPacket
 {
 public:
@@ -113,6 +123,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// Values packet - contains general current state information
 
 class FocboxUnityPacketValues : public FocboxUnityPacket
 {
@@ -148,6 +159,8 @@ int fault_code() const;
 
 };
 
+// request values packet - requests a reponse in the form of a values packet
+
 class FocboxUnityPacketRequestValues : public FocboxUnityPacket
 {
 public:
@@ -155,6 +168,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// set duty packet - changes the control mode to duty cycles and sets targets
 
 class FocboxUnityPacketSetDuty : public FocboxUnityPacket
 {
@@ -163,6 +177,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// set current packet - changes the control mode to current and sets targets
 
 class FocboxUnityPacketSetCurrent : public FocboxUnityPacket
 {
@@ -171,6 +186,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// set current brake packet - changes the control mode to current brake and sets targets
 
 class FocboxUnityPacketSetCurrentBrake : public FocboxUnityPacket
 {
@@ -179,6 +195,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// set rpm packet - changes the control mode to rpm and sets targets
 
 class FocboxUnityPacketSetRPM : public FocboxUnityPacket
 {
@@ -187,6 +204,7 @@ public:
 };
 
 /*------------------------------------------------------------------------------------------------*/
+// set position packet - changes the control mode to position and sets targets
 
 class FocboxUnityPacketSetPos : public FocboxUnityPacket
 {

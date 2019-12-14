@@ -9,8 +9,12 @@
           respawn="false" output="screen"
           args="/focbox_unity_driver/joint_states
                 /focbox_unity_driver/differential_controller" />
+  <!-- change "/focbox_unity_driver/differential_controller" for 
+  "/focbox_unity_driver/velocity_controller1
+  /focbox_unity_driver/velocity_controller2" 
+  this exports a velocity state interface for each wheel instead of the diff controller-->
 
-  <!--FOCBOX Unitydriver parameters -->
+  <!--FOCBOX Unitydriver parameters (/dev/focbox is a symlink created so there is no need to modify this launch file) -->
   <arg name="port" default="/dev/focbox" />
 
   <!--FOCBOX Unitydriver node -->

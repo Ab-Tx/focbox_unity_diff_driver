@@ -1,4 +1,9 @@
-// -*- mode:c++; fill-column: 100; -*-
+// Copyright (c) 2019 Rafael Silva (gimbas)
+//
+// Licensed under the MIT license: https://opensource.org/licenses/MIT
+// Permission is granted to use, copy, modify, and redistribute the work.
+// Full license information available in the project LICENSE file.
+//
 
 #include "focbox_unity_driver/focbox_unity_packer.h"
 
@@ -84,8 +89,7 @@ FocboxUnityPacketPtr FocboxUnityPacker::createPacket(const Buffer::const_iterato
   // do we have enough data in the buffer to complete the frame?
   int frame_size = boost::distance(view_frame);
   if (buffer_size < frame_size)
-    return createFailed(num_bytes_needed, what, "Buffer does not contain a complete frame",
-                        frame_size - buffer_size);
+    return createFailed(num_bytes_needed, what, "Buffer does not contain a complete frame", frame_size - buffer_size);
 
   // is the end-of-frame character valid?
   if (FocboxUnityFrame::FOCBOX_UNITY_EOF_VAL != *iter_eof)
@@ -95,32 +99,20 @@ FocboxUnityPacketPtr FocboxUnityPacker::createPacket(const Buffer::const_iterato
   unsigned short crc = (static_cast<unsigned short>(*iter_crc) << 8) + *(iter_crc + 1);
   FocboxUnityFrame::CRC crc_calc;
   crc_calc.process_bytes(&(*view_payload.first), boost::distance(view_payload));
-  if (crc != crc_calc.checksum())
-    return createFailed(num_bytes_needed, what, "Invalid checksum");
+  if (crc != crc_calc.checksum()) return createFailed(num_bytes_needed, what, "Invalid checksum");
 
   // frame looks good, construct the raw frame
   boost::shared_ptr<FocboxUnityFrame> raw_frame(new FocboxUnityFrame(view_frame, view_payload));
 
-  // if the packet has a payload, construct the corresponding subclass
-  if (boost::distance(view_payload) > 0)
+  if (boost::distance(view_payload) > 0) // if the packet has a payload, construct the corresponding subclass
   {
     // get constructor function from payload id
     PackerMap* p_map(getMap());
     PackerMap::const_iterator search(p_map->find(*view_payload.first));
-    if (search != p_map->end()) {
-      return search->second(raw_frame);
-    }
-    else {
-      // no subclass constructor for this packet
-      return createFailed(num_bytes_needed, what, "Unkown payload type.");
-    }
-
+    if (search != p_map->end()) return search->second(raw_frame);
+    else return createFailed(num_bytes_needed, what, "Unkown payload type."); // no subclass constructor for this packet
   }
-  else {
-    // no payload
-    return createFailed(num_bytes_needed, what, "Frame does not have a payload");
-  }
+  else return createFailed(num_bytes_needed, what, "Frame does not have a payload"); // no payload
 }
-
 
 } // namesapce focbox_unity_driver

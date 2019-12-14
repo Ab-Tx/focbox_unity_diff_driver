@@ -1,4 +1,9 @@
-// -*- mode:c++; fill-column: 100; -*-
+// Copyright (c) 2019 Rafael Silva (gimbas)
+//
+// Licensed under the MIT license: https://opensource.org/licenses/MIT
+// Permission is granted to use, copy, modify, and redistribute the work.
+// Full license information available in the project LICENSE file.
+//
 
 #ifndef FOCBOX_UNITY_DRIVER_H_
 #define FOCBOX_UNITY_DRIVER_H_
