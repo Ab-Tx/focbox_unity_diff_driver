@@ -2,7 +2,7 @@ focbox_unity_driver:
   # parameters used in the driver
   motor_parameters:
     counts: 90.0
-    pole_pairs: 14.0
+    pole_pairs: 15.0
 
   # joint state interface
   joint_states:
