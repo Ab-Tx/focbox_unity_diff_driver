@@ -8,7 +8,7 @@ The controller works with a velocity twist from which it extracts the x componen
 
 ## Hardware interface type
 
-The controller works with wheel joints through a velocity interface, is is implemented and not exposed, user should not need to mess with it.
+The controller works with wheel joints through a velocity interface, it is not exposed, user should not need to mess with it.
 
 If you require two velocity joint interfaces instead of the differential controller, you should modify the controler node arguments in the launch file, coments in said file will help you.
 
@@ -195,7 +195,7 @@ focbox_unity_driver:
   # parameters used in the driver
   motor_parameters:
     counts: 90.0
-    pole_pairs: 14.0
+    pole_pairs: 15.0
 
   # joint state interface
   joint_states:
