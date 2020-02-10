@@ -17,7 +17,7 @@
   <!--FOCBOX Unitydriver parameters (/dev/focbox is a symlink created so there is no need to modify this launch file) -->
   <arg name="port" default="/dev/focbox" />
 
-  <!--FOCBOX Unitydriver node -->
+  <!--FOCBOX Unity driver node -->
   <node pkg="focbox_unity_driver" type="focbox_unity_driver_node" name="focbox_unity_driver_node"
         output="screen" required="true">
     <param name="port" value="$(arg port)" />
