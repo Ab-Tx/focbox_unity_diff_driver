@@ -1,4 +1,4 @@
-# FOCBOX Unity driver
+# FOCBOX Unity driver (ROS 1 Noetic)
 
 simple api to comunicate with FOCBOX Unity motor controllers
 
