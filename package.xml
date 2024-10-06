@@ -1,39 +1,46 @@
 <?xml version="1.0"?>
-<package>
+<?xml-model
+   href="http://download.ros.org/schema/package_format3.xsd"
+   schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>focbox_unity_driver</name>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <description>
-    ROS device driver for the  FOCBOX Unity motor driver.
+    ROS2 device driver for the  FOCBOX Unity motor driver.
   </description>
 
-  <maintainer email="silvagracarafael@gmail.com">Rafael Silva</maintainer>
-  <author email="silvagracarafael@gmail.com">Rafael Silva</author>
   <license>MIT</license>
 
-  <url type="website">http://www.ros.org/wiki</url>
-  <url type="repository">https://github.com/gimbas/focbox_unity_ros_driver</url>
-  <url type="bugtracker">https://github.com/gimbas/focbox_unity_ros_driver/issues</url>
+  <url type="website">http://www.ros.org</url>
+  <url type="repository">https://github.com/Ab-Tx/focbox_unity_diff_driver</url>
+  <maintainer email="user@todo.todo">user</maintainer>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  
+  <depend>roslaunch</depend>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>serial</depend>
+  <depend>controller_manager</depend>
 
-  <build_depend>roslaunch</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>serial</build_depend>
-  <build_depend>controller_manager</build_depend>
-  <build_depend>hardware_interface</build_depend>
-  <build_depend>effort_controllers</build_depend>
+  <depend>hardware_interface</depend>
+  <depend>joint_command_interface</depend>
+  <depend>pluginlib</depend>
+  <depend>control_msgs</depend>
+  
+  <depend>effort_controllers</depend>
 
-  <run_depend>roslaunch</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>std_msgs</run_depend>
-  <run_depend>serial</run_depend>
-  <run_depend>controller_manager</run_depend>
-  <run_depend>hardware_interface</run_depend>
-  <run_depend>effort_controllers</run_depend>
+  <!-- <exec_depend>roslaunch</exec_depend>
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>serial</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>hardware_interface</exec_depend>
+  <exec_depend>effort_controllers</exec_depend> -->
 
   <export>
     <nodelet plugin="${prefix}/focbox_unity_driver_nodelet.xml"/>
+    <build_type>ament_cmake</build_type> <!-- ros2 -->
   </export>
 
 </package>

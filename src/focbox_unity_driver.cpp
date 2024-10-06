@@ -16,7 +16,7 @@
 namespace focbox_unity_driver
 {
 
-FocboxUnityDriver::FocboxUnityDriver(ros::NodeHandle nh, ros::NodeHandle private_nh) :
+FocboxUnityDriver::FocboxUnityDriver(rclcpp::NodeHandle nh, rclcpp::NodeHandle private_nh) :
   focbox_(std::string(),
         boost::bind(&FocboxUnityDriver::focboxUnityPacketCB, this, _1),
         boost::bind(&FocboxUnityDriver::focboxUnityErrorCB, this, _1)),
@@ -29,8 +29,8 @@ FocboxUnityDriver::FocboxUnityDriver(ros::NodeHandle nh, ros::NodeHandle private
   std::string port;
   if (!private_nh.getParam("port", port))
   {
-    ROS_FATAL("FOCBOX communication port parameter required.");
-    ros::shutdown();
+    RCLCPP_FATAL("FOCBOX communication port parameter required.");
+    rclcpp::shutdown();
     return;
   }
 
@@ -41,8 +41,8 @@ FocboxUnityDriver::FocboxUnityDriver(ros::NodeHandle nh, ros::NodeHandle private
   }
   catch(SerialException exception)
   {
-    ROS_FATAL("Failed to connect to the FOCBOX, %s.", exception.what());
-    ros::shutdown();
+    RCLCPP_FATAL("Failed to connect to the FOCBOX, %s.", exception.what());
+    rclcpp::shutdown();
     return;
   }
 
@@ -88,17 +88,17 @@ FocboxUnityDriver::FocboxUnityDriver(ros::NodeHandle nh, ros::NodeHandle private
   driver_fault_pub_ = nh.advertise<std_msgs::Float64>("focbox_unity_driver/driver/fault", 10);
 
   // create a 50Hz timer, used for state machine & pollingFOCBOX Unitytelemetry
-  update_timer_ = nh.createTimer(ros::Duration(1.0/50.0), &FocboxUnityDriver::updateTimerCB, this);
+  update_timer_ = nh.createTimer(rclcpp::Duration(1.0/50.0), &FocboxUnityDriver::updateTimerCB, this);
 }
 
-void FocboxUnityDriver::updateTimerCB(const ros::TimerEvent& event)
+void FocboxUnityDriver::updateTimerCB(const rclcpp::TimerEvent& event)
 {
   //FOCBOX Unityinterface should not unexpectedly disconnect, but test for it anyway
   if(!focbox_.isConnected())
   {
-    ROS_FATAL("Unexpectedly disconnected from serial port.");
+    RCLCPP_FATAL("Unexpectedly disconnected from serial port.");
     update_timer_.stop();
-    ros::shutdown();
+    rclcpp::shutdown();
     return;
   }
 
@@ -113,7 +113,7 @@ void FocboxUnityDriver::updateTimerCB(const ros::TimerEvent& event)
     focbox_.requestFWVersion();
     if (fw_version_major_ >= 0 && fw_version_minor_ >= 0)
     {
-      ROS_INFO("Connected to FOCBOX Unity with firmware version %d.%d",
+      RCLCPP_INFO("Connected to FOCBOX Unity with firmware version %d.%d",
                fw_version_major_, fw_version_minor_);
 
       driver_mode_ = MODE_OPERATING;
@@ -136,9 +136,9 @@ void FocboxUnityDriver::updateTimerCB(const ros::TimerEvent& event)
 void FocboxUnityDriver::controllerRoutine(const boost::shared_ptr<FocboxUnityPacketValues const>& values)
 {
   time_last_ = time_now_;
-  time_now_ = ros::Time::now();
+  time_now_ = rclcpp::Time::now();
 
-  elapsed_time_ = ros::Duration(time_now_.toSec() - time_last_.toSec());
+  elapsed_time_ = rclcpp::Duration(time_now_.toSec() - time_last_.toSec());
 
   _eff[0] = values->motor_current1();
   _eff[1] = values->motor_current2();
@@ -220,10 +220,10 @@ void FocboxUnityDriver::focboxUnityPacketCB(const boost::shared_ptr<FocboxUnityP
 
 void FocboxUnityDriver::focboxUnityErrorCB(const std::string& error)
 {
-  ROS_ERROR("%s", error.c_str());
+  RCLCPP_ERROR("%s", error.c_str());
 }
 
-FocboxUnityDriver::CommandLimit::CommandLimit(const ros::NodeHandle& nh, const std::string& str, const boost::optional<double>& min_lower, const boost::optional<double>& max_upper) :  name(str)
+FocboxUnityDriver::CommandLimit::CommandLimit(const rclcpp::NodeHandle& nh, const std::string& str, const boost::optional<double>& min_lower, const boost::optional<double>& max_upper) :  name(str)
 {
   // check if user's minimum value is outside of the range min_lower to max_upper
   double param_min;
@@ -232,13 +232,13 @@ FocboxUnityDriver::CommandLimit::CommandLimit(const ros::NodeHandle& nh, const s
     if (min_lower && param_min < *min_lower)
     {
       lower = *min_lower;
-      ROS_WARN_STREAM("Parameter " << name << "_min (" << param_min <<
+      RCLCPP_WARN_STREAM("Parameter " << name << "_min (" << param_min <<
                       ") is less than the feasible minimum (" << *min_lower << ").");
     }
     else if (max_upper && param_min > *max_upper)
     {
       lower = *max_upper;
-      ROS_WARN_STREAM("Parameter " << name << "_min (" << param_min <<
+      RCLCPP_WARN_STREAM("Parameter " << name << "_min (" << param_min <<
                       ") is greater than the feasible maximum (" << *max_upper << ").");
     }
     else
@@ -258,13 +258,13 @@ FocboxUnityDriver::CommandLimit::CommandLimit(const ros::NodeHandle& nh, const s
     if (min_lower && param_max < *min_lower)
     {
       upper = *min_lower;
-      ROS_WARN_STREAM("Parameter " << name << "_max (" << param_max <<
+      RCLCPP_WARN_STREAM("Parameter " << name << "_max (" << param_max <<
                       ") is less than the feasible minimum (" << *min_lower << ").");
     }
     else if (max_upper && param_max > *max_upper)
     {
       upper = *max_upper;
-      ROS_WARN_STREAM("Parameter " << name << "_max (" << param_max <<
+      RCLCPP_WARN_STREAM("Parameter " << name << "_max (" << param_max <<
                       ") is greater than the feasible maximum (" << *max_upper << ").");
     }
     else
@@ -280,7 +280,7 @@ FocboxUnityDriver::CommandLimit::CommandLimit(const ros::NodeHandle& nh, const s
   // check for min > max
   if (upper && lower && *lower > *upper)
   {
-    ROS_WARN_STREAM("Parameter " << name << "_max (" << *upper
+    RCLCPP_WARN_STREAM("Parameter " << name << "_max (" << *upper
                     << ") is less than parameter " << name << "_min (" << *lower << ").");
     double temp(*lower);
     lower = *upper;
@@ -291,20 +291,20 @@ FocboxUnityDriver::CommandLimit::CommandLimit(const ros::NodeHandle& nh, const s
   oss << "  " << name << " limit: ";
   if (lower) oss << *lower << " "; else oss << "(none) ";
   if (upper) oss << *upper; else oss << "(none)";
-  ROS_DEBUG_STREAM(oss.str());
+  RCLCPP_DEBUG_STREAM(oss.str());
 }
 
 double FocboxUnityDriver::CommandLimit::clip(double value)
 {
   if (lower && value < lower)
   {
-    ROS_INFO_THROTTLE(10, "%s command value (%f) below minimum limit (%f), clipping.",
+    RCLCPP_INFO_THROTTLE(10, "%s command value (%f) below minimum limit (%f), clipping.",
                       name.c_str(), value, *lower);
     return *lower;
   }
   if (upper && value > upper)
   {
-    ROS_INFO_THROTTLE(10, "%s command value (%f) above maximum limit (%f), clipping.",
+    RCLCPP_INFO_THROTTLE(10, "%s command value (%f) above maximum limit (%f), clipping.",
                       name.c_str(), value, *upper);
     return *upper;
   }

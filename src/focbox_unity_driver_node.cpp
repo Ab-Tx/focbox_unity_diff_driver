@@ -9,17 +9,20 @@
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "focbox_unity_driver_node");
-  ros::CallbackQueue ros_queue;
+  // ros::init(argc, argv, "focbox_unity_driver_node");
+  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared("focbox_unity_driver_node");
 
-  ros::NodeHandle nh;
-  ros::NodeHandle private_nh("~");
+  rclcpp::CallbackQueue ros_queue;
+
+  rclcpp::NodeHandle nh;
+  rclcpp::NodeHandle private_nh("~");
   nh.setCallbackQueue(&ros_queue);
 
   focbox_unity_driver::FocboxUnityDriver focbox_unity_driver(nh, private_nh);
 
 
-  ros::MultiThreadedSpinner spinner(0);
+  rclcpp::MultiThreadedSpinner spinner(0);
   spinner.spin(&ros_queue);
 
   return 0;
