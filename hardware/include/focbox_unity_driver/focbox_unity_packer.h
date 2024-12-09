@@ -16,8 +16,8 @@
 #include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "focbox_unity_driver/v8stdint.h"
-#include "focbox_unity_driver/focbox_unity_packet.h"
+#include "v8stdint.h"
+#include "focbox_unity_packet.h"
 
 namespace focbox_unity_driver
 {

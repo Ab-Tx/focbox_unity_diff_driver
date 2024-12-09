@@ -5,7 +5,7 @@
 // Full license information available in the project LICENSE file.
 //
 
-#include "focbox_unity_driver/focbox_unity_packer.h"
+#include "include/focbox_unity_driver/focbox_unity_packer.h"
 
 #include <cassert>
 #include <iterator>
@@ -14,7 +14,7 @@
 #include <boost/range/distance.hpp>
 #include <boost/range/end.hpp>
 
-#include "focbox_unity_driver/focbox_unity_packet.h"
+#include "include/focbox_unity_driver/focbox_unity_packet.h"
 
 namespace focbox_unity_driver
 {

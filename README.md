@@ -2,6 +2,13 @@
 
 simple api to comunicate with FOCBOX Unity motor controllers
 
+## todo
+> This branch is under developemnt
+- [X] update dependencies
+- [ ] rewrite urdf
+- [ ] rewrite source code for ros2
+- [ ] update readme.md
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -88,9 +95,7 @@ Please read [CONTRIBUTING.md](//) for details on our code of conduct, and the pr
 
 ## Authors
 
-* **Rafael Silva** - *complete rework* - [gimbas](https://github.com/gimbas)
-
-See also the list of [contributors](https://github.com/gimbas/focbox_unity_ros_driver/graphs/contributors) who participated in this project.
+See the list of [contributors](https://github.com/Ab-Tx/focbox_unity_diff_driver/graphs/contributors) who participated in this project.
 
 ## License
 
@@ -101,4 +106,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * original vesc firmware - [vedderb](https://github.com/vedderb/bldc)
 * focbox unity firmware - [enertionboards](https://github.com/EnertionBoards/bldc/tree/unity)
 * mit racecar vesc driver - [mit-racecar/vesc](https://github.com/mit-racecar/vesc)
-* ros_control & roscontrollers
+* ros2_control & ros2_controllers

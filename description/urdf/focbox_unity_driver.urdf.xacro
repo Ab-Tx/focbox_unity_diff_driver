@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Basic differential drive mobile base -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="diffdrive_robot">
+  <xacro:arg name="prefix" default="" />
+
+  <xacro:include filename="$(find focbox_unity_driver)/urdf/sim/diffbot_description.urdf.xacro" /> <!-- '/description/' ? -->
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find focbox_unity_driver)/urdf/sim/diffbot.materials.xacro" />
+
+  <!-- Import diffbot ros2_control description -->
+  <xacro:include filename="$(find focbox_unity_driver)/ros2_control/focbox_unity_driver.ros2_control.xacro" />
+
+  <xacro:diffbot prefix="$(arg prefix)" />
+
+  <xacro:focbox_unity_driver.ros2_control.xacro
+    name="DiffBot" prefix="$(arg prefix)" use_mock_hardware="$(arg use_mock_hardware)"/>
+
+</robot>

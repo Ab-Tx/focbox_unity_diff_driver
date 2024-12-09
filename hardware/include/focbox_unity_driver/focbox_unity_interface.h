@@ -18,7 +18,7 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "focbox_unity_driver/focbox_unity_packet.h"
+#include "focbox_unity_packet.h"
 
 namespace focbox_unity_driver
 {

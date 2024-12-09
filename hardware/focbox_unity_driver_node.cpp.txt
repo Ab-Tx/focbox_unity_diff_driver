@@ -4,8 +4,9 @@
 // Permission is granted to use, copy, modify, and redistribute the work.
 // Full license information available in the project LICENSE file.
 //
+// Modifications notice --
 
-#include "focbox_unity_driver/focbox_unity_driver.h"
+#include "include/focbox_unity_driver/focbox_unity_driver.h"
 
 int main(int argc, char** argv)
 {
@@ -13,17 +14,18 @@ int main(int argc, char** argv)
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("focbox_unity_driver_node");
 
-  rclcpp::CallbackQueue ros_queue;
+  // ros::CallbackQueue ros_queue;
 
-  rclcpp::NodeHandle nh;
-  rclcpp::NodeHandle private_nh("~");
-  nh.setCallbackQueue(&ros_queue);
+  auto private_nh = node->create_sub_node("~");
+  // node.setCallbackQueue(&ros_queue);
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(node);
 
-  focbox_unity_driver::FocboxUnityDriver focbox_unity_driver(nh, private_nh);
+  focbox_unity_driver::FocboxUnityDriver focbox_unity_driver(node, private_nh);
 
-
-  rclcpp::MultiThreadedSpinner spinner(0);
-  spinner.spin(&ros_queue);
+  executor.spin();
+  // ros::MultiThreadedSpinner spinner(0);
+  // spinner.spin(&ros_queue);
 
   return 0;
 }

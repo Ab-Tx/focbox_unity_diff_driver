@@ -5,7 +5,7 @@
 // Full license information available in the project LICENSE file.
 //
 
-#include "focbox_unity_driver/focbox_unity_interface.h"
+#include "include/focbox_unity_driver/focbox_unity_interface.h"
 
 #include <pthread.h>
 
@@ -17,7 +17,7 @@
 #include <serial/serial.h>
 #include <boost/crc.hpp>
 
-#include "focbox_unity_driver/focbox_unity_packer.h"
+#include "include/focbox_unity_driver/focbox_unity_packer.h"
 
 namespace focbox_unity_driver
 {
