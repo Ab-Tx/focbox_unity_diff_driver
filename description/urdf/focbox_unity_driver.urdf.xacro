@@ -13,7 +13,7 @@
 
   <xacro:diffbot prefix="$(arg prefix)" />
 
-  <xacro:focbox_unity_driver.ros2_control.xacro
-    name="DiffBot" prefix="$(arg prefix)" use_mock_hardware="$(arg use_mock_hardware)"/>
+  <xacro:focbox_unity_driver_ros2_control
+    name="DiffBot" prefix="$(arg prefix)"/>
 
 </robot>

@@ -48,7 +48,7 @@ ament_target_dependencies(
 
 # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
-target_compile_definitions(${PROJECT_NAME} PRIVATE "HOVERBOARD_DRIVER_BUILDING_DLL")
+target_compile_definitions(${PROJECT_NAME} PRIVATE "FOCBOX_DRIVER_BUILDING_DLL")
 
 # Export hardware plugins
 pluginlib_export_plugin_description_file(focbox_unity_driver focbox_unity_driver.xml)

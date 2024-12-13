@@ -64,15 +64,19 @@ def generate_launch_description():
         executable="ros2_control_node",
         parameters=[robot_description, robot_controllers],
         output="both",
+        remappings=[
+            ("~/robot_description", "/robot_description"),
+            ("/focbox_unity_driver_controller/cmd_vel", "/cmd_vel"),
+        ],
     )
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="both",
         parameters=[robot_description],
-        remappings=[
-            ("/focbox_base_controller/cmd_vel_unstamped", "/cmd_vel"),
-        ],
+        # remappings=[
+        #     ("/focbox_base_controller/cmd_vel_unstamped", "/cmd_vel"),
+        # ],
     )
     #rviz_node = Node(
     #    package="rviz2",
@@ -92,7 +96,7 @@ def generate_launch_description():
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["focbox_base_controller", "--controller-manager", "/controller_manager"],
+        arguments=["focbox_unity_driver_controller", "--controller-manager", "/controller_manager"],
     )
 
     # Delay rviz start after `joint_state_broadcaster`

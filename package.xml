@@ -22,12 +22,14 @@
   <depend>std_msgs</depend>
   <depend>serial</depend>
   <depend>controller_manager</depend>
+  <exec_depend>diff_drive_controller</exec_depend>
+  <exec_depend>joint_state_broadcaster</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
 
   <depend>hardware_interface</depend>
   <!-- <depend>joint_command_interface</depend> -->
   <depend>pluginlib</depend>
   <depend>control_msgs</depend>
-  
   <depend>effort_controllers</depend>
 
   <!-- <exec_depend>roslaunch</exec_depend>
