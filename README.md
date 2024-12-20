@@ -5,9 +5,17 @@ simple api to comunicate with FOCBOX Unity motor controllers
 ## todo
 > This branch is under developemnt
 - [X] update dependencies
-- [ ] rewrite urdf
-- [ ] rewrite source code for ros2
+- [X] rewrite urdf
+- [X] solve compilation errors
+- [ ] solve runtime errors
+- [ ] optimize library function calls for ros2_control
 - [ ] update readme.md
+
+Useful references: 
+ - [ROS roadmap design drafts](https://github.com/ros-controls/roadmap/tree/master/design_drafts)
+ - [Ros2 control documentation](https://control.ros.org/humble/doc/ros2_control/doc/index.html#guidelines-and-best-practices)
+ - [Hoverboard differential robot implementation](https://github.com/hoverboard-robotics/hoverboard-driver/tree/humble)
+ - [Turtlebot3 ros2 package](https://github.com/ROBOTIS-GIT/turtlebot3/tree/humble-devel)
 
 ## Getting Started
 

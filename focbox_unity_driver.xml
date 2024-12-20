@@ -1,4 +1,4 @@
-<library path="libfocbox_unity_driver">
+<library path="focbox_unity_driver">
   <class name="focbox_unity_driver/FocboxUnityDriver"
          type="focbox_unity_driver::FocboxUnityDriver"
          base_class_type="hardware_interface::SystemInterface">

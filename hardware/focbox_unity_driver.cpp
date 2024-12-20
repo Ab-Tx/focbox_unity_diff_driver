@@ -1,5 +1,3 @@
-// Copyright (c) 2019 Rafael Silva (gimbas)
-//
 // Licensed under the MIT license: https://opensource.org/licenses/MIT
 // Permission is granted to use, copy, modify, and redistribute the work.
 // Full license information available in the project LICENSE file.
@@ -39,7 +37,7 @@ namespace focbox_unity_driver
     auto nh = rclcpp::Node::make_shared("focbox_unity_driver_node");
     auto private_nh = nh->create_sub_node("~");
     rclcpp::executors::MultiThreadedExecutor executor;
-    executor.add_node(nh);
+    //executor.add_node(nh);
 
     // duty_cycle_limit_ = CommandLimit(private_nh, "duty_cycle", -1.0, 1.0);
     // current_limit_ = CommandLimit(private_nh, "current");

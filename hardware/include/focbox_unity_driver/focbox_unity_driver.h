@@ -46,7 +46,7 @@
 namespace focbox_unity_driver
 {
 
-  class FocboxUnityDriver : public hardware_interface::SystemInterface //: public rclcpp::Node
+  class FocboxUnityDriver : public hardware_interface::SystemInterface //, public rclcpp::Node
   {
   public:
     RCLCPP_SHARED_PTR_DEFINITIONS(FocboxUnityDriver);
